@@ -35,7 +35,7 @@ const CARDS = [
   ["Sabah insanı", "Gece insanı"],
   ["Fakir işi", "Zengin işi"],
   ["Abur cubur", "Sağlıklı atıştırmalık"],
-  ["İçine kapanık", "Dışa dönük"],
+  ["İçe dönük", "Dışa dönük"],
   ["Az pişmiş", "Çok pişmiş"],
   ["Fısıldanır", "Bağırılır"],
   ["Hafife alınır", "Ciddiye alınır"],
@@ -49,7 +49,7 @@ const CARDS = [
   ["Kötü koku", "Güzel koku"],
   ["Rahat kıyafet", "Şık kıyafet"],
   ["Ev işi", "Ofis işi"],
-  ["Risksiz", "Çok riskli"],
+  ["Güvenli", "Tehlikeli"],
   ["Abartılan", "Hakkı yenen"],
   ["Unutulur", "Akılda kalır"],
   ["Kırılgan", "Sağlam"],
@@ -143,5 +143,104 @@ const CARDS = [
   ["Ucuz tatil", "Lüks tatil"],
   ["İhtiyaç", "Lüks"],
   ["Sıradan tişört", "Abartılı tişört"],
-  ["Yorucu spor", "Dinlendirici spor"]
+  ["Yorucu spor", "Dinlendirici spor"],
+
+  // --- Fiziksel / somut ---
+  ["Yaygın", "Nadir"],
+  ["Eski", "Yeni"],
+
+  // --- Yeme içme ---
+  ["Kötü kahvaltı", "Mükemmel kahvaltı"],
+  ["Atıştırmalık", "Tam öğün"],
+  ["Acısız", "Çok acı"],
+  ["Bayat", "Taze"],
+  ["Açık çay", "Koyu çay"],
+  ["Yanına ayran yakışmaz", "Ayransız olmaz"],
+  ["Kahvaltıda yenmez", "Kahvaltının olmazsa olmazı"],
+  ["Çocuk yemeği", "Yetişkin yemeği"],
+  ["Ucuz lokanta", "Pahalı restoran"],
+  ["Soğuk yenir", "Sıcak yenir"],
+  ["Tarifi kolay", "Tarifi zor"],
+
+  // --- Kişilik ve davranış ---
+  ["Cimri", "Cömert"],
+  ["Ciddi", "Şakacı"],
+  ["Dağınık", "Titiz"],
+  ["Mantıklı", "Duygusal"],
+  ["Takıntılı", "Umursamaz"],
+  ["Güvenilmez", "Güvenilir"],
+  ["Uyumlu", "İnatçı"],
+
+  // --- Ahlak ve toplum ---
+  ["Kabul edilebilir", "Kabul edilemez"],
+  ["Özür gerektirmez", "Özür şart"],
+  ["Görgüsüzlük", "İncelik"],
+  ["Bahşiş verilmez", "Mutlaka bahşiş verilir"],
+  ["Yalan sayılmaz", "Düpedüz yalan"],
+
+  // --- Duygu ve deneyim ---
+  ["Rahatlatıcı", "Stresli"],
+  ["Utanç verici", "Havalı"],
+  ["Acıklı", "Komik"],
+  ["Yorucu", "Dinlendirici"],
+  ["Hayal kırıklığı", "Beklenenden iyi"],
+  ["Korkutucu değil", "Dehşet verici"],
+  ["Sinir bozucu", "Keyifli"],
+  ["Zorunluluk", "Zevk"],
+
+  // --- Popüler kültür ---
+  ["Unutulmuş", "Kült"],
+  ["Kötü kötü adam", "Efsane kötü adam"],
+  ["Bir kere izlenir", "Defalarca izlenir"],
+  ["Reklamı iyi", "Ürünü iyi"],
+  ["Sanat değil", "Yüksek sanat"],
+  ["Bilim değil", "Kesin bilim"],
+
+  // --- Türkiye'ye özel ---
+  ["Sakin semt", "Curcunalı semt"],
+  ["Kısa yol", "Trafiği kötü yol"],
+  ["Kimse gitmez", "Turist dolu tatil yeri"],
+  ["Kaçırılabilir bayram ziyareti", "Kaçırılmaz bayram ziyareti"],
+  ["Uygunsuz düğün hediyesi", "Mükemmel düğün hediyesi"],
+  ["Yazlık şehir", "Kışlık şehir"],
+  ["Kışın giyilmez", "Kışın şart"],
+  ["Küçük şehir işi", "Büyük şehir işi"],
+  ["Kirası ucuz", "Kirası fahiş"],
+  ["Anlaşılmaz argo", "Herkesin bildiği argo"],
+
+  // --- Nesneler ve teknoloji ---
+  ["Kolay tamir edilir", "Tamiri imkânsız"],
+  ["Çirkin tasarım", "Güzel tasarım"],
+  ["Kullanışsız", "Çok kullanışlı"],
+  ["Modası geçmiş teknoloji", "Geleceğin teknolojisi"],
+  ["Kimse okumaz", "Herkes okur"],
+  ["Kimse kullanmaz", "Herkes kullanır"],
+
+  // --- Hayvanlar ve doğa ---
+  ["Çirkin hayvan", "Sevimli hayvan"],
+  ["Evde beslenmez", "Evde beslenir"],
+  ["Aptal hayvan", "Zeki hayvan"],
+  ["Görülmesi kolay", "Görülmesi zor"],
+  ["Sıradan manzara", "Nefes kesici manzara"],
+
+  // --- Yetenek ve zorluk ---
+  ["Öğrenmesi kolay", "Öğrenmesi zor"],
+  ["Herkes yapabilir", "Çok az kişi yapabilir"],
+  ["Fiziksel güç ister", "Zekâ ister"],
+  ["Spor sayılmaz", "Gerçek spor"],
+
+  // --- Zaman ve yaşam ---
+  ["Sabah aktivitesi", "Gece aktivitesi"],
+  ["Hafta içi", "Hafta sonu"],
+  ["Anlık karar", "Yıllarca düşünülür"],
+  ["Ertelenebilir", "Acil"],
+
+  // --- Soyut / tartışma çıkaranlar ---
+  ["Şans", "Kader"],
+  ["Gelenek", "Batıl inanç"],
+  ["Hobi", "Bağımlılık"],
+  ["Tavsiye", "Emir"],
+  ["İltifat", "Hakaret"],
+  ["Arkadaşlık", "Aşk"],
+  ["Yardım", "Acıma"],
 ];

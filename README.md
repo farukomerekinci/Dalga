@@ -20,7 +20,7 @@ Kurulum gerekmez: tarayıcıda açılır, iPhone'da "Ana Ekrana Ekle" ile uygula
 ## Özellikler
 
 - Tek cihazda sırayla oynanır, internet bağlantısı gerektirmez
-- 140+ Türkçe skala kartı, tekrarsız karıştırma
+- 210+ Türkçe skala kartı, tekrarsız karıştırma
 - Parmakla sürüklenen kadran + ince ayar butonları
 - iPhone için tam ekran (PWA) desteği, güvenli alan (çentik) uyumu
 - Sayfa yenilense bile oyun kaldığı yerden devam eder (localStorage)
