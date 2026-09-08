@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+<title>Dalga</title>
+<meta name="description" content="Dalga - arkadaşlarınla oynayabileceğin telepatik parti oyunu. Tek telefonda, sırayla." />
+<meta name="theme-color" content="#0d1020" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Dalga" />
+<link rel="manifest" href="manifest.json" />
+<link rel="apple-touch-icon" href="assets/icon-180.png" />
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body data-screen="home">
+
+<div class="stripe"></div>
+
+<!-- Dial (tek örnek, aktif ekrana taşınır) -->
+<div id="dialWrap" class="dial-wrap" hidden>
+  <div class="dial-box">
+    <svg id="dial" viewBox="0 0 400 216" preserveAspectRatio="xMidYMid meet" aria-label="Kadran">
+      <defs>
+        <linearGradient id="faceGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1d2540"/>
+          <stop offset="100%" stop-color="#121729"/>
+        </linearGradient>
+      </defs>
+      <path id="face" d="" fill="url(#faceGrad)" stroke="#39456d" stroke-width="2"/>
+      <g id="bands"></g>
+      <path id="shield" d="" fill="#2ea36b" stroke="#1c6b47" stroke-width="2"/>
+      <g id="ticks"></g>
+      <line id="needle" x1="200" y1="200" x2="200" y2="34" stroke="#ff5a4d" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="200" cy="200" r="18" fill="#e8402f" stroke="#8f1f16" stroke-width="3"/>
+    </svg>
+    <div class="dial-ends">
+      <div class="end end-left"><span id="endLeft">Sol</span></div>
+      <div class="end end-right"><span id="endRight">Sağ</span></div>
+    </div>
+  </div>
+  <div id="nudger" class="nudger" hidden>
+    <button class="nudge" data-nudge="-1" aria-label="Sola">◀</button>
+    <span class="nudge-hint">Kadranı sürükle veya ince ayar yap</span>
+    <button class="nudge" data-nudge="1" aria-label="Sağa">▶</button>
+  </div>
+</div>
+
+<!-- ANA EKRAN -->
+<section class="screen" data-name="home">
+  <header class="logo">
+    <h1>DALGA</h1>
+    <p class="tagline">Telepatik parti oyunu</p>
+  </header>
+
+  <div class="card">
+    <div class="mode-toggle" id="modeToggle">
+      <button class="mode active" data-mode="teams">İki Takım</button>
+      <button class="mode" data-mode="coop">Tek Takım</button>
+    </div>
+
+    <div id="teamsSetup">
+      <label class="field">
+        <span>1. Takım</span>
+        <input id="teamA" type="text" maxlength="18" value="Takım A" autocomplete="off" />
+      </label>
+      <label class="field">
+        <span>2. Takım</span>
+        <input id="teamB" type="text" maxlength="18" value="Takım B" autocomplete="off" />
+      </label>
+      <label class="field">
+        <span>Kazanma puanı</span>
+        <select id="targetScore">
+          <option value="7">7 puan (kısa)</option>
+          <option value="10" selected>10 puan (normal)</option>
+          <option value="15">15 puan (uzun)</option>
+        </select>
+      </label>
+    </div>
+
+    <div id="coopSetup" hidden>
+      <label class="field">
+        <span>Takım adı</span>
+        <input id="teamC" type="text" maxlength="18" value="Bizimkiler" autocomplete="off" />
+      </label>
+      <label class="field">
+        <span>Tur sayısı</span>
+        <select id="coopRounds">
+          <option value="5">5 tur</option>
+          <option value="7" selected>7 tur</option>
+          <option value="10">10 tur</option>
+        </select>
+      </label>
+    </div>
+
+    <button class="btn primary big" id="btnStart">Oyunu Başlat</button>
+    <button class="btn ghost" id="btnResume" hidden>Kaldığın yerden devam et</button>
+    <button class="btn link" id="btnRules">Nasıl oynanır?</button>
+  </div>
+  <p class="footnote">Tek telefon yeter. Telefonu sırayla elden ele verin.</p>
+</section>
+
+<!-- TELEFONU VER -->
+<section class="screen" data-name="pass">
+  <div class="card center">
+    <p class="eyebrow">Tur <span id="passRound">1</span></p>
+    <h2 id="passTitle">Takım A</h2>
+    <p class="big-note">Telefonu bu takımın <b>kâhinine</b> verin.</p>
+    <p class="muted">Diğerleri ekrana bakmasın!</p>
+    <button class="btn primary big" id="btnPassOk">Kâhin benim, hazırım</button>
+  </div>
+</section>
+
+<!-- KAHİN EKRANI -->
+<section class="screen" data-name="psychic">
+  <div class="topbar">
+    <span class="eyebrow">Kâhin: <b id="psychicTeam">Takım A</b></span>
+    <span class="eyebrow">Tur <span id="psyRound">1</span></span>
+  </div>
+  <div class="dial-slot"></div>
+  <div class="card tight">
+    <p class="muted small">Hedefi sadece sen görüyorsun. Bu noktayı anlatan <b>tek bir ipucu</b> düşün ve sesli söyle.</p>
+    <input id="clueInput" class="clue-input" type="text" maxlength="60" placeholder="İpucunu yaz (isteğe bağlı)" autocomplete="off" />
+    <button class="btn primary big" id="btnClueDone">Telefonu takıma ver</button>
+  </div>
+</section>
+
+<!-- TAKIM TAHMİNİ -->
+<section class="screen" data-name="guess">
+  <div class="topbar">
+    <span class="eyebrow">Tahmin: <b id="guessTeam">Takım A</b></span>
+    <span class="eyebrow">Tur <span id="guessRound">1</span></span>
+  </div>
+  <div class="clue-banner" id="clueBanner" hidden></div>
+  <div class="dial-slot"></div>
+  <div class="card tight">
+    <button class="btn primary big" id="btnLock">Kilitle</button>
+  </div>
+</section>
+
+<!-- KARŞI TAKIM: SOL/SAĞ -->
+<section class="screen" data-name="bonus">
+  <div class="card center">
+    <p class="eyebrow">Bonus puan</p>
+    <h2 id="bonusTeam">Takım B</h2>
+    <p class="big-note">Sizce gerçek hedef, işaretlenen okun <b>hangi tarafında</b>?</p>
+    <div class="side-btns">
+      <button class="btn side" data-side="left">◀ Solunda</button>
+      <button class="btn side" data-side="right">Sağında ▶</button>
+    </div>
+    <p class="muted small">Doğru bilirseniz +1 puan.</p>
+  </div>
+</section>
+
+<!-- SONUÇ -->
+<section class="screen" data-name="reveal">
+  <div class="topbar">
+    <span class="eyebrow" id="revealClue"></span>
+  </div>
+  <div class="dial-slot"></div>
+  <div class="card tight center">
+    <div class="score-pop" id="scorePop">+3</div>
+    <p id="revealText" class="big-note"></p>
+    <div class="scoreboard" id="scoreboard"></div>
+    <button class="btn primary big" id="btnNext">Sonraki tur</button>
+  </div>
+</section>
+
+<!-- OYUN SONU -->
+<section class="screen" data-name="over">
+  <div class="card center">
+    <div class="trophy">🏆</div>
+    <h2 id="winnerText">Takım A kazandı!</h2>
+    <div class="scoreboard" id="finalBoard"></div>
+    <button class="btn primary big" id="btnRematch">Rövanş</button>
+    <button class="btn ghost" id="btnHome">Ana menü</button>
+  </div>
+</section>
+
+<!-- KURALLAR -->
+<div class="modal" id="rulesModal" hidden>
+  <div class="modal-box">
+    <h2>Nasıl oynanır?</h2>
+    <ol>
+      <li>Takımlar kurulur. Her turda bir takımın <b>kâhini</b> telefonu alır.</li>
+      <li>Ekranda bir <b>skala</b> (örn. Soğuk ↔ Sıcak) ve sadece kâhinin gördüğü <b>gizli hedef</b> vardır.</li>
+      <li>Kâhin, hedefi anlatan <b>tek bir ipucu</b> söyler. Örn. hedef sıcağa yakınsa: “Kahve”.</li>
+      <li>Takım tartışır ve kadranı ipucuna göre çevirip <b>kilitler</b>.</li>
+      <li>Hedef açılır: tam ortada <b>4</b>, yanlarda <b>3</b>, en dışta <b>2</b> puan.</li>
+      <li>4 puan çıkmadıysa karşı takım, hedefin okun solunda mı sağında mı olduğunu tahmin eder: doğruysa <b>+1</b>.</li>
+      <li>Hedef puana ilk ulaşan takım kazanır.</li>
+    </ol>
+    <p class="muted small">Kâhin ipucu verirken el kol hareketi yapamaz, sadece ipucunu söyler. İpucu skalanın uçlarındaki kelimeler olamaz.</p>
+    <button class="btn primary" id="btnCloseRules">Anladım</button>
+  </div>
+</div>
+
+<script src="cards.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
